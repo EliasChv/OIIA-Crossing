@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://qpnvknm2l3ns"]
+
+[ext_resource type="PackedScene" uid="uid://c4niuqlwhgdpx" path="res://Cat.gltf" id="1_glv2v"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_uu6xs"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="blockbench_export" parent="." instance=ExtResource("1_glv2v")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, -0.0919732, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0)
+mesh = SubResource("PlaneMesh_uu6xs")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.400934, 1.07875)
