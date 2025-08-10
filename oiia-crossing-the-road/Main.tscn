@@ -1,30 +1,38 @@
 [gd_scene load_steps=10 format=3 uid="uid://qpnvknm2l3ns"]
 
-[ext_resource type="PackedScene" uid="uid://c4niuqlwhgdpx" path="res://Cat.gltf" id="1_glv2v"]
 [ext_resource type="Script" uid="uid://dfko4q42oq3ja" path="res://Cat.cs" id="1_r0du0"]
 [ext_resource type="PackedScene" uid="uid://bk33sla2hxlep" path="res://truck.tscn" id="2_uu6xs"]
 [ext_resource type="FontFile" uid="uid://dulbkx30is4pt" path="res://fonts/gamefont.ttf" id="4_cm0pq"]
+[ext_resource type="PackedScene" uid="uid://cuk0jgvxu345e" path="res://scenes/Cat.tscn" id="5_3dxm6"]
 [ext_resource type="PackedScene" uid="uid://dllm146fn70wo" path="res://beardcatuseable.gltf" id="5_fos0i"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_lgr22"]
+sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+ground_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+
+[sub_resource type="Sky" id="Sky_trn2v"]
+sky_material = SubResource("ProceduralSkyMaterial_lgr22")
+
+[sub_resource type="Environment" id="Environment_03owx"]
+background_mode = 2
+sky = SubResource("Sky_trn2v")
+tonemap_mode = 2
+ssao_enabled = true
+fog_enabled = true
+fog_density = 0.15
+volumetric_fog_emission_energy = 1024.0
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_uu6xs"]
 
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_uu6xs"]
-
-[sub_resource type="Sky" id="Sky_r0du0"]
-sky_material = SubResource("ProceduralSkyMaterial_uu6xs")
-
-[sub_resource type="Environment" id="Environment_uu6xs"]
-background_mode = 2
-background_color = Color(1, 1, 1, 1)
-sky = SubResource("Sky_r0du0")
-ssao_enabled = true
-ssao_intensity = 3.98
-ssil_enabled = true
-fog_density = 0.0
-fog_aerial_perspective = 0.022
-
 [node name="Node3D" type="Node3D"]
 script = ExtResource("1_r0du0")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_03owx")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0)
@@ -85,20 +93,10 @@ custom_minimum_size = Vector2(256, 64)
 layout_mode = 2
 text = ">"
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.54727, -3.81912)
-sky_mode = 1
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_uu6xs")
-
 [node name="cats" type="Node3D" parent="."]
-
-[node name="cat" parent="cats" instance=ExtResource("1_glv2v")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
 
 [node name="cat2" parent="cats" instance=ExtResource("5_fos0i")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
 visible = false
 
-[node name="CharacterBody3D" type="CharacterBody3D" parent="."]
+[node name="Cat" parent="cats" instance=ExtResource("5_3dxm6")]
